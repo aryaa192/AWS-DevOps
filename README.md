@@ -126,3 +126,71 @@ you'll get some longggg.... string that's your password!!!
   > The next page is about installing plugins (one can skip this for later on by clicking cross x icon)
   > start using jenkins 
   ## TADA :) Welcome to Jenkins Dashboard
+
+## Step-2 Configure Jenkins with Git and Maven
+#### install git in your ec2 instance.
+```
+yum install git
+```
+> Go to Jenkins Dashboard...
+> install plugin github and setup git configuration.
+> create a job for pulling the code from your github respository.
+> Run Build.
+#### install maven on same ec2 instance
+one can follow the instruction for installing maven from this url: **https://maven.apache.org/install.html**
+or
+run below command:
+```
+$ cd /opt
+$ wget https://dlcdn.apache.org/maven/maven-3/3.8.6/binaries/apache-maven-3.8.6-bin.tar.gz
+$ tar -xvfz <apache-maven-tar-file-name>
+$ mv <apache-maven-file> maven
+```
+Now, Let's set path for maven to be run from anywhere.
+Note: We'll be setting this for root user.
+Go to : root home directory
+Look for hidden file .bash_profile by **ls -al** command
+> Edit the file using vi editor.
+Add below configuration path:
+```
+M2_HOME=/opt/maven
+M2=/opt/maven/bin
+JAVA_HOME=<find where jdk is installed in ec2 instance set that path>
+
+PATH=$PATH:$HOME/bin:$JAVA_HOME:$M2_HOME:$M2
+```
+Note: use this command: **find / -name java-11* ** (in your case parameter may differ.)
+after configuration it should look like this..
+![image](https://user-images.githubusercontent.com/22274075/190923936-80b6de4d-79e4-4ddd-b917-5260d368ab36.png)
+
+Let's verify it..
+
+```
+$ mvn -v
+Apache Maven 3.8.6 (84538c9988a25aec085021c365c560670ad80f63)
+Maven home: /opt/maven
+Java version: 11.0.16, vendor: Red Hat, Inc., runtime: /usr/lib/jvm/java-11-openjdk-11.0.16.0.8-1.amzn2.0.1.x86_64
+Default locale: en_US, platform encoding: UTF-8
+OS name: "linux", version: "5.10.135-122.509.amzn2.x86_64", arch: "amd64", family: "unix"
+[root@ip-172-31-3-136 ~]# vi .bash_profile
+[root@ip-172-31-3-136 ~]# mvn -v
+Apache Maven 3.8.6 (84538c9988a25aec085021c365c560670ad80f63)
+Maven home: /opt/maven
+Java version: 11.0.16, vendor: Red Hat, Inc., runtime: /usr/lib/jvm/java-11-openjdk-11.0.16.0.8-1.amzn2.0.1.x86_64
+Default locale: en_US, platform encoding: UTF-8
+OS name: "linux", version: "5.10.135-122.509.amzn2.x86_64", arch: "amd64", family: "unix"
+```
+TADA... :) maven installed and configured.
+
+Now, Let's go to Jenkins Dashboard and do below stuff..
+> Install maven plugins
+> goto global configs:
+> set java home path installed on ec2 instance.
+> set maven path : /opt/maven
+
+Let's create another job called FirstMavenProject.
+provide two inputs:
+1. github repository url to pull the code
+2. under Build/ Goals & Option : clean install
+> Apply and save | run build.
+
