@@ -1,7 +1,7 @@
 # DevOps Project:
 ## Create CI/CD pipelines using Git, Terraform, Jenkins, Ansible, and Kubernetes on AWS
 
-We'll go through step by step with full setup guide. Let's quickly starts with git,
+We'll go through step by step with full setup guide.
 
 ### Pre-requisite:
 1. Github Account
@@ -109,10 +109,10 @@ Sep 18 06:29:16 ip-172-31-3-136.ap-south-1.compute.internal jenkins[14199]: 2022
 Sep 18 06:29:16 ip-172-31-3-136.ap-south-1.compute.internal jenkins[14199]: 2022-09-...
 Hint: Some lines were ellipsized, use -l to show in full.
 ```
-tada.. :D we're all good to go!!
+tada.. :D good to go!!
 Now, Let's go on <ec2-instance-ip address>:8080 (make sure that you have added this port number in your instance security group.) (If not please go to aws-portal and open this port by modifying your security group.)
 
-Hoping that you're jenkins login page..
+Hoping that you're on jenkins login page..
 ![image](https://user-images.githubusercontent.com/22274075/190889247-21a28d0c-46e1-4b99-bfe0-8f151c5ea415.png)
 
 Oops!! It's asking for the password :>
